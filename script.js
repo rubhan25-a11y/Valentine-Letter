@@ -15,6 +15,12 @@ envelope.addEventListener("click", () => {
     envelope.style.display = "none";
     letter.style.display = "flex";
 
+    const music = document.getElementById("bg-music");
+    music.volume = 0.5;
+    music.play().catch(error => {
+        console.log("Autoplay blocked:", error);
+    });
+
     setTimeout( () => {
         document.querySelector(".letter-window").classList.add("open");
     },50);
@@ -69,4 +75,33 @@ yesBtn.addEventListener("click", () => {
     buttons.style.display = "none";
 
     finalText.style.display = "block";
+
+        function fireSideConfetti() {
+        const duration = 1500;
+        const end = Date.now() + duration;
+
+        (function frame() {
+            confetti({
+                particleCount: 6,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: ['#ff4d6d', '#ff99c8', '#ffc2d1']
+            });
+
+            confetti({
+                particleCount: 6,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: ['#ff4d6d', '#ff99c8', '#ffc2d1']
+            });
+
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        })();
+    }
+
+    fireSideConfetti();
 });
